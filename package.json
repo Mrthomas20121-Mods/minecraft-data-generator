@@ -1,0 +1,24 @@
+{
+  "name": "minecraft-data-generator",
+  "version": "0.0.1",
+  "description": "Minecraft Data Generator",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mrthomas20121-Mods/minecraft-datagen-generator.git"
+  },
+  "keywords": [
+    "Minecraft",
+    "Datagen",
+    "Generator"
+  ],
+  "author": "Mrthomas20121",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Mrthomas20121-Mods/minecraft-datagen-generator/issues"
+  },
+  "homepage": "https://github.com/Mrthomas20121-Mods/minecraft-datagen-generator#readme"
+}
