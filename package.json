@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/Mrthomas20121-Mods/minecraft-datagen-generator/issues"
   },
-  "homepage": "https://github.com/Mrthomas20121-Mods/minecraft-datagen-generator#readme"
+  "homepage": "https://github.com/Mrthomas20121-Mods/minecraft-datagen-generator#readme",
+  "dependencies": {
+    "void-list": "^1.1.1"
+  }
 }

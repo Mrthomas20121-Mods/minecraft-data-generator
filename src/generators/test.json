@@ -1,0 +1,14 @@
+{
+    "type": "forEach",
+    "forEach": ["a", "b", "c"],
+    "values": [
+        {
+            "type": "simple_block",
+            "naming": "%for%/rockwool"
+        },
+        {
+            "type": "decoration_blocks",
+            "naming": "%for%/rockwool_%deco%"
+        }
+    ]
+}
