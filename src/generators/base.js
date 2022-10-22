@@ -1,5 +1,9 @@
 const fs = require('fs')
 const path = require('path')
+const List = require('void-list')
+const EventEmitter = require('events');
+const eventEmitter = new EventEmitter();
+
 
 /**
  * Create the path if it doesn't exist
@@ -63,6 +67,12 @@ let blockFromLoc = (location) => {
     return loc[0]+':block/'+loc[1]
 }
 
+let itemFromLoc = (location) => {
+    let loc = location.split(':')
+
+    return loc[0]+':item/'+loc[1]
+}
+
 /**
  * Save a json file
  * @param {Object<string, any>} json 
@@ -70,6 +80,30 @@ let blockFromLoc = (location) => {
  */
 let saveJson = (json, filePath) => {
     fs.writeFileSync(filePath+'.json', JSON.stringify(json, null, 2), 'utf8')
+}
+
+/**
+ * Read a json file
+ * @param {string} filePath
+ * @returns {Object<string, any>}
+ */
+ let readJson = (filePath) => {
+    return JSON.parse(fs.readFileSync(filePath, 'utf8'))
+}
+
+/**
+ * @returns {List<string>}
+ */
+let createStringList = () => {
+    return new List()
+}
+
+/**
+ * @param {string} arr
+ * @returns {List<string>}
+ */
+ let createStringListFromArray = (arr) => {
+    return List.fromArray(arr)
 }
 
 /**
@@ -81,5 +115,10 @@ module.exports = {
     createPath,
     pathFromLoc,
     blockFromLoc,
-    saveJson
+    itemFromLoc,
+    saveJson,
+    readJson,
+    eventEmitter,
+    createStringList,
+    createStringListFromArray
 }
