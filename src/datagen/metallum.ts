@@ -16,6 +16,8 @@ function getItems(metal: Metal[], partName: string): string[] {
 }
 
 manager.run((assets, data, modid) => {
+    let metalParts: string[] = load('./src/datagen/metal_parts.json');
+    let toolMetalParts: string[] = load('./src/datagen/tool_metal_parts.json');
     let metals: Metal[] = load('./src/datagen/metals.json');
     let toolMetals = metals.filter(metal => metal.hasToolArmor)
     let ores: Ore[] = load('./src/datagen/ores.json');
@@ -48,6 +50,12 @@ manager.run((assets, data, modid) => {
         data.tags.addItemTag(`forge:rods/${metal.name}`, [`${modid}::metal/rod/${metal.name}`]);
 
         if(metal.hasToolArmor) {
+
+            // tool parts models
+            for(let toolPart of toolMetalParts) {
+                models.itemModel(`${modid}:metal/${toolPart}/metal`);
+            }
+
             // models
             models.anvil(`metal/anvil/${metal.name}`);
             models.chain(`metal/chain/${metal.name}`);
@@ -60,6 +68,10 @@ manager.run((assets, data, modid) => {
             data.loots.dropBlock(`metal/chain/${metal.name}`);
             data.loots.copyBlockNBTData(`metal/lamp/${metal.name}`);
             data.loots.dropBlock(`metal/trapdoor/${metal.name}`);
+        }
+        // metal parts models
+        for(let toolPart of metalParts) {
+            models.itemModel(`${modid}:metal/${toolPart}/metal`);
         }
     }
 
