@@ -1,17 +1,19 @@
 import { join } from "path"
 import { existsSync, mkdirSync, writeFileSync } from 'fs'
-import { Ingredient, ItemStack } from "./types.js";
+import { Ingredient, ItemStack, JSObj } from "./types.js";
+import List from "void-list";
+import { ModelManager } from "./assets-builders.js";
 
 abstract class Manager {
 
     public modid: string;
-    private map: Map<string, object> = new Map()
+    protected map: Map<string, object> = new Map()
 
     constructor(modid: string) {
         this.modid = modid;
     }
 
-    private createTagPath(pathTo: string) {
+    protected createTagPath(pathTo: string) {
         let split = pathTo.includes('/') ? '/' : '\\';
         let tempPath = pathTo.split(split);
         tempPath.pop();
@@ -23,7 +25,7 @@ abstract class Manager {
     }
 
     protected custom(path1: string, path2: string, json: object) {
-        let path = join('.', path1, this.modid, path2);
+        let path = join('.', 'generated', this.modid, path1, this.modid, path2);
         this.map.set(path, json);
     }
 
@@ -54,35 +56,58 @@ abstract class Manager {
 
 export class AssetManager extends Manager {
 
+    private lang: LangManager;
+    private assetBuilder: ModelManager
+
     constructor(modid: string) {
-        super(modid)
+        super(modid);
+        this.lang = new LangManager(modid);
     }
 
     customAsset(path: string, json: object) {
-        this.custom('assets', path, json)
+        this.custom('assets', path+'.json', json);
     }
 
-    customBlockModel(path: string, json: object) {
-        this.custom('assets', join('models', 'block', path), json)
+    registerModels(builder: ModelManager) {
+        this.assetBuilder = builder;
     }
 
-    customItemModel(path: string, json: object) {
-        this.custom('assets', join('models', 'item', path), json)
+    public run(): void {
+        this.lang.run();
+        this.assetBuilder.build();
+    }
+}
+
+export class LangManager extends Manager {
+
+    private json: JSObj = {}
+
+    itemEntry(block: string, custom: string): void {
+        this.entry(`item.${this.modid}.${block}`, custom);
     }
 
-    customBlockstate(path: string, json: object) {
-        this.custom('assets', join('blockstates', path), json)
+    blockEntry(block: string, custom: string): void {
+        this.entry(`block.${this.modid}.${block}`, custom);
+    }
+
+    entry(name: string, custom: string): void {
+        this.json[name] = custom;
+    }
+
+    public run(): void {
+        this.custom('assets', '/lang/en_us.json', this.json);
+        super.run();
     }
 }
 
 export class LootManager extends Manager {
 
     customLootTable(path: string, json: object) {
-        this.custom('data', join('loot_tables', path), json)
+        this.custom('data', join('loot_tables', path), json);
     }
 
     customBlockLootTable(path: string, json: object) {
-        this.custom('data', join('loot_tables', 'blocks', path), json)
+        this.custom('data', join('loot_tables', 'blocks', path), json);
     }
 
     dropBlock(block: string) {
@@ -108,8 +133,31 @@ export class LootManager extends Manager {
         });
     }
 
+    dropOther(block: string, item: string) {
+        this.customBlockLootTable(block+'.json', {
+            "type": "minecraft:block",
+            "pools": [
+                {
+                    "name": "loot_pool",
+                    "rolls": 1,
+                    "entries": [
+                        {
+                            "type": "minecraft:item",
+                            "name": this.item(item)
+                        }
+                    ],
+                    "conditions": [
+                        {
+                            "condition": "minecraft:survives_explosion"
+                        }
+                    ]
+                }
+            ]
+        });
+    }
+
     copyBlockNBTData(block: string) {
-        this.customLootTable(block, {
+        this.customBlockLootTable(block+'.json', {
             "type": "minecraft:block",
             "pools": [
               {
@@ -149,25 +197,60 @@ export class LootManager extends Manager {
     }
 }
 
-export class DataManager extends Manager {
+export class TagManager extends Manager {
 
-    public loots: LootManager
+    public addBlockTag(tagName: string, values: string[], replace: boolean=false) {
+        this.addTag('blocks', tagName, values, replace)
+    }
+
+    public addItemTag(tagName: string, values: string[], replace: boolean=false) {
+        this.addTag('items', tagName, values, replace)
+    }
+
+    public addTag(tagType: string, tagName: string, values: string[], replace: boolean=false) {
+        let split = tagName.split(':');
+        let path = this.createTagPath(join('.', 'generated', this.modid, 'data', split[0], 'tags', tagType, split[1]+'.json'));
+        this.map.set(path, {
+            replace:replace,
+            values:values
+        });
+    }
+    
+    public run(): void {
+        this.map.forEach((v, p) => {
+            writeFileSync(p, JSON.stringify(v, null, 2), 'utf8');
+        })
+    }
+}
+
+export abstract class DataManager extends Manager {
+
+    public loots: LootManager;
+    public tags: TagManager;
 
     constructor(modid: string) {
-        super(modid)
-        this.loots = new LootManager(this.modid)
+        super(modid);
+        this.loots = new LootManager(this.modid);
+        this.tags = new TagManager(modid);
     }
 
     customData(path: string, json: object) {
-        this.custom('data', path, json)
+        this.custom('data', path, json);
     }
 
     customRecipe(path: string, json: object) {
-        this.custom('data', join('recipes', path), json)
+        this.custom('data', join('recipes', path), json);
     }
 
     public run(): void {
         super.run();
         this.loots.run();
+        this.tags.run();
+    }
+}
+
+export class DefaultDataManager extends DataManager {
+    public static create(modid: string) {
+        return new DefaultDataManager(modid);
     }
 }
