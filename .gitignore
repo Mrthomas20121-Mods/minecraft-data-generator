@@ -4,4 +4,3 @@ assets/*
 generated*
 recipes
 crafting_recipes
-src/*.js
