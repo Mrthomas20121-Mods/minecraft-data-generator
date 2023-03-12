@@ -3,6 +3,9 @@ import { join } from "path";
 export class ModelManager {
     modid;
     map = new Map();
+    static create(modid) {
+        return new ModelManager(modid);
+    }
     constructor(modid) {
         this.modid = modid;
     }
@@ -22,28 +25,58 @@ export class ModelManager {
     save(savePath, obj) {
         this.map.set(savePath, obj);
     }
-    itemModel(itemName) {
-        let savePath = this.createTagPath(join('.', 'generated', this.modid, 'assets', this.modid, 'models', 'item', this.joinString(itemName, '.json')));
+    particleModel(p, itemName, parent = 'item/generated') {
+        let savePath = this.createTagPath(join('.', 'generated', this.modid, 'assets', this.modid, 'models', 'item', this.joinString(p, '.json')));
         let obj = {
-            parent: 'item/generated',
+            parent: parent,
+            textures: {
+                particle: `${this.modid}:item/${itemName}`
+            }
+        };
+        this.map.set(savePath, obj);
+    }
+    itemModelWithParent(p, itemName, parent = 'item/generated') {
+        let savePath = this.createTagPath(join('.', 'generated', this.modid, 'assets', this.modid, 'models', 'item', this.joinString(p, '.json')));
+        let obj = {
+            parent: parent,
             textures: {
                 layer0: `${this.modid}:item/${itemName}`
             }
         };
         this.map.set(savePath, obj);
     }
+    itemModel(itemName, parent = 'item/generated') {
+        let savePath = this.createTagPath(join('.', 'generated', this.modid, 'assets', this.modid, 'models', 'item', this.joinString(itemName, '.json')));
+        let obj = {
+            parent: parent,
+            textures: {
+                layer0: `${this.modid}:item/${itemName}`
+            }
+        };
+        this.map.set(savePath, obj);
+    }
+    itemBlockModel(itemName) {
+        let savePath = this.createTagPath(join('.', 'generated', this.modid, 'assets', this.modid, 'models', 'item', this.joinString(itemName, '.json')));
+        let obj = {
+            parent: 'item/generated',
+            textures: {
+                layer0: `${this.modid}:block/${itemName}`
+            }
+        };
+        this.map.set(savePath, obj);
+    }
     decorativeBlocks(blockName) {
         this.block(blockName);
-        this.stairs(blockName + '_stairs', blockName);
+        this.stairs(blockName, blockName);
         this.slab(blockName + '_slab', blockName);
         this.wall(blockName + '_wall', blockName);
     }
     stairs(blockName, otherBlockName) {
-        let stairs = this.createTagPath(join('.', 'generated', this.modid, 'assets', this.modid, 'models', 'block', this.joinString(blockName, '.json')));
-        let innerStairs = this.createTagPath(join('.', 'generated', this.modid, 'assets', this.modid, 'models', 'block', this.joinString(blockName, '_inner.json')));
-        let outerStairs = this.createTagPath(join('.', 'generated', this.modid, 'assets', this.modid, 'models', 'block', this.joinString(blockName, '_outer.json')));
-        let fullItemBlockPath = this.createTagPath(join('.', 'generated', this.modid, 'assets', this.modid, 'models', 'item', this.joinString(blockName, '.json')));
-        let fullBlockstatePath = this.createTagPath(join('.', 'generated', this.modid, 'assets', this.modid, 'blockstates', this.joinString(blockName, '.json')));
+        let stairs = this.createTagPath(join('.', 'generated', this.modid, 'assets', this.modid, 'models', 'block', this.joinString(blockName, '_stairs.json')));
+        let innerStairs = this.createTagPath(join('.', 'generated', this.modid, 'assets', this.modid, 'models', 'block', this.joinString(blockName, '_stairs_inner.json')));
+        let outerStairs = this.createTagPath(join('.', 'generated', this.modid, 'assets', this.modid, 'models', 'block', this.joinString(blockName, '_stairs_outer.json')));
+        let fullItemBlockPath = this.createTagPath(join('.', 'generated', this.modid, 'assets', this.modid, 'models', 'item', this.joinString(blockName, '_stairs.json')));
+        let fullBlockstatePath = this.createTagPath(join('.', 'generated', this.modid, 'assets', this.modid, 'blockstates', this.joinString(blockName, '_stairs.json')));
         this.save(fullBlockstatePath, {
             "variants": {
                 "facing=east,half=bottom,shape=straight": {
@@ -278,7 +311,7 @@ export class ModelManager {
             }
         });
         this.save(fullItemBlockPath, {
-            parent: `${this.modid}:block/${blockName}`
+            parent: `${this.modid}:block/${blockName}_stairs`
         });
     }
     slab(blockName, otherBlockName) {
@@ -444,6 +477,54 @@ export class ModelManager {
             parent: `${this.modid}:block/${blockName}_inventory`
         });
     }
+    bucket(itemPath, fluidPath) {
+        let fullItemBlockPath = this.createTagPath(join('.', 'generated', this.modid, 'assets', this.modid, 'models', 'item', this.joinString(itemPath, '.json')));
+        this.save(itemPath, {
+            "parent": "forge:item/bucket_drip",
+            "loader": "forge:bucket",
+            "fluid": `${this.modid}:${fluidPath}`
+        });
+    }
+    ladder(blockName) {
+        let fullBlockPath = this.createTagPath(join('.', 'generated', this.modid, 'assets', this.modid, 'models', 'block', this.joinString(blockName, '.json')));
+        let fullBlockstatePath = this.createTagPath(join('.', 'generated', this.modid, 'assets', this.modid, 'blockstates', this.joinString(blockName, '.json')));
+        this.save(fullBlockstatePath, {
+            "variants": {
+                "facing=east": {
+                    "model": `${this.modid}:block/${blockName}`,
+                    "y": 90
+                },
+                "facing=north": {
+                    "model": `${this.modid}:block/${blockName}`
+                },
+                "facing=south": {
+                    "model": `${this.modid}:block/${blockName}`,
+                    "y": 180
+                },
+                "facing=west": {
+                    "model": `${this.modid}:block/${blockName}`,
+                    "y": 270
+                }
+            }
+        });
+        this.save(fullBlockPath, {
+            "ambientocclusion": false,
+            "textures": {
+                "particle": `${this.modid}:block/${blockName}`,
+                "texture": `${this.modid}:block/${blockName}`
+            },
+            "elements": [{
+                    "from": [0, 0, 15.2],
+                    "to": [16, 16, 15.2],
+                    "shade": false,
+                    "faces": {
+                        "north": { "uv": [0, 0, 16, 16], "texture": "#texture" },
+                        "south": { "uv": [16, 0, 0, 16], "texture": "#texture" }
+                    }
+                }]
+        });
+        this.itemBlockModel(blockName);
+    }
     block(blockName) {
         let fullBlockPath = this.createTagPath(join('.', 'generated', this.modid, 'assets', this.modid, 'models', 'block', this.joinString(blockName, '.json')));
         let fullItemBlockPath = this.createTagPath(join('.', 'generated', this.modid, 'assets', this.modid, 'models', 'item', this.joinString(blockName, '.json')));
@@ -465,9 +546,6 @@ export class ModelManager {
         this.save(fullItemBlockPath, {
             parent: `${this.modid}:block/${blockName}`
         });
-        // this.map.forEach((value, key) => {
-        //     console.log(key, value)
-        // })
     }
     horizontalBlock(blockName, side, top) {
         let normal = this.createTagPath(join('.', 'generated', this.modid, 'assets', this.modid, 'models', 'block', this.joinString(blockName, '.json')));

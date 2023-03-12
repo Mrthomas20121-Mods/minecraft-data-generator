@@ -24,7 +24,8 @@
   },
   "homepage": "https://github.com/Mrthomas20121-Mods/minecraft-datagen-generator#readme",
   "dependencies": {
-    "void-list": "^1.1.4"
+    "void-list": "^1.1.4",
+    "void-map": "^0.0.1"
   },
   "devDependencies": {
     "@tsconfig/node12": "^1.0.11",

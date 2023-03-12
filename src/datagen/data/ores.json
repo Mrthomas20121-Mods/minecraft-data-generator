@@ -1,0 +1,84 @@
+[
+    {
+        "name": "bauxite",
+        "isGraded": true,
+        "metal": "aluminum",
+        "metalTemp": 660
+    },
+    {
+        "name": "bertrandite",
+        "isGraded": true,
+        "metal": "beryllium",
+        "metalTemp": 1200
+    },
+    {
+        "name": "certus_quartz",
+        "isGraded": false
+    },
+    {
+        "name": "cobaltite",
+        "isGraded": true,
+        "metal": "cobalt",
+        "metalTemp": 1500
+    },
+    {
+        "name": "galena",
+        "isGraded": true,
+        "metal": "lead",
+        "metalTemp": 328
+    },
+    {
+        "name": "kernite",
+        "isGraded": true,
+        "metal": "boron",
+        "metalTemp": 2070
+    },
+    {
+        "name": "native_iridium",
+        "isGraded": true,
+        "metal": "iridium",
+        "metalTemp": 2490
+    },
+    {
+        "name": "native_platinum",
+        "isGraded": true,
+        "metal": "platinum",
+        "metalTemp": 1730
+    },
+    {
+        "name": "native_osmium",
+        "isGraded": true,
+        "metal": "osmium",
+        "metalTemp": 3025
+    },
+    {
+        "name": "monazite",
+        "isGraded": true,
+        "metal": "thorium",
+        "metalTemp": 1750
+    },
+    {
+        "name": "rutile",
+        "isGraded": true,
+        "metal": "titanium",
+        "metalTemp": 1700
+    },
+    {
+        "name": "stibnite",
+        "isGraded": true,
+        "metal": "antimony",
+        "metalTemp": 630
+    },
+    {
+        "name": "uraninite",
+        "isGraded": true,
+        "metal": "uranium",
+        "metalTemp": 1100
+    },
+    {
+        "name": "wolframite",
+        "isGraded": true,
+        "metal": "tungsten",
+        "metalTemp": 3400
+    }
+]

@@ -61,13 +61,13 @@ export class AssetManager extends Manager {
 }
 export class LangManager extends Manager {
     json = {};
-    itemEntry(block, custom) {
-        this.anyEntry(`item.${this.modid}.${block}`, custom);
+    itemEntry(item, custom) {
+        this.entry(`item.${this.modid}.${item}`, custom);
     }
     blockEntry(block, custom) {
-        this.anyEntry(`block.${this.modid}.${block}`, custom);
+        this.entry(`block.${this.modid}.${block}`, custom);
     }
-    anyEntry(name, custom) {
+    entry(name, custom) {
         this.json[name] = custom;
     }
     run() {
@@ -173,6 +173,9 @@ export class TagManager extends Manager {
     addItemTag(tagName, values, replace = false) {
         this.addTag('items', tagName, values, replace);
     }
+    addFluidTag(tagName, values, replace = false) {
+        this.addTag('fluids', tagName, values, replace);
+    }
     addTag(tagType, tagName, values, replace = false) {
         let split = tagName.split(':');
         let path = this.createTagPath(join('.', 'generated', this.modid, 'data', split[0], 'tags', tagType, split[1] + '.json'));
@@ -201,10 +204,47 @@ export class DataManager extends Manager {
     customRecipe(path, json) {
         this.custom('data', join('recipes', path), json);
     }
+    recipe(path, recipeType, json) {
+        let output = {
+            type: recipeType
+        };
+        for (let index in json) {
+            output[index] = json[index];
+        }
+        this.customRecipe(path, output);
+    }
     run() {
         super.run();
         this.loots.run();
         this.tags.run();
+    }
+    shapedRecipe(name, pattern, key, result) {
+        this.recipe(name + '.json', 'minecraft:crafting_shaped', {
+            pattern: pattern,
+            key: key,
+            result: result
+        });
+    }
+    /**
+     * A recipe with a mod required condition
+     * @param name
+     * @param pattern
+     * @param key
+     * @param result
+     * @param condition
+     */
+    conditionalShapedRecipe(name, pattern, key, result, condition) {
+        this.recipe(name + '.json', 'minecraft:crafting_shaped', {
+            pattern: pattern,
+            key: key,
+            result: result,
+            conditions: [
+                {
+                    type: 'forge:mod_loaded',
+                    modid: condition
+                }
+            ]
+        });
     }
 }
 export class DefaultDataManager extends DataManager {

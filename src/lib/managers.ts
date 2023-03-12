@@ -56,7 +56,7 @@ abstract class Manager {
 
 export class AssetManager extends Manager {
 
-    private lang: LangManager;
+    public lang: LangManager;
     private assetBuilder: ModelManager
 
     constructor(modid: string) {
@@ -82,8 +82,8 @@ export class LangManager extends Manager {
 
     private json: JSObj = {}
 
-    itemEntry(block: string, custom: string): void {
-        this.entry(`item.${this.modid}.${block}`, custom);
+    itemEntry(item: string, custom: string): void {
+        this.entry(`item.${this.modid}.${item}`, custom);
     }
 
     blockEntry(block: string, custom: string): void {
@@ -197,28 +197,74 @@ export class LootManager extends Manager {
     }
 }
 
+export class DoubleKeyMap<A, B, C> {
+    private keys1: List<A> = new List();
+    private keys2: List<B> = new List();
+    private values: List<List<C>> = new List();
+
+    put(key1: A, key2: B, value: C[]) {
+
+        this.keys1.add(key1);
+        this.keys2.add(key2);
+        this.values.add(List.fromArray(value));
+    }
+
+    containKeys(key1: A, key2: B): boolean {
+        return this.keys1.contain(key1) && this.keys2.contain(key2);
+    }
+
+    indexOf(key1: A, key2: B): number {
+        if(this.containKeys(key1, key2)) {
+            return this.keys1.indexOf(key1);
+        }
+    }
+
+    updateValue(key1: A, key2: B, elementsToAdd: C[]) {
+        let index = this.indexOf(key1, key2);
+        this.values.get(index).fromArray(elementsToAdd);
+    }
+
+    public forEach(predicate: (key1:A, key2: B, value: List<C>) => void): void {
+        for(let i = 0; i<this.keys1.size(); i++) {
+            let key1 = this.keys1.get(i);
+            let key2 = this.keys2.get(i);
+            let value = this.values.get(i);
+            predicate(key1, key2, value);
+        }
+    }
+}
+
 export class TagManager extends Manager {
 
+    private tagMap: DoubleKeyMap<string, string, string> = new DoubleKeyMap();
+
     public addBlockTag(tagName: string, values: string[], replace: boolean=false) {
-        this.addTag('blocks', tagName, values, replace)
+        this.addTag('blocks', tagName, values)
     }
 
     public addItemTag(tagName: string, values: string[], replace: boolean=false) {
-        this.addTag('items', tagName, values, replace)
+        this.addTag('items', tagName, values)
     }
 
-    public addTag(tagType: string, tagName: string, values: string[], replace: boolean=false) {
-        let split = tagName.split(':');
-        let path = this.createTagPath(join('.', 'generated', this.modid, 'data', split[0], 'tags', tagType, split[1]+'.json'));
-        this.map.set(path, {
-            replace:replace,
-            values:values
-        });
+    public addFluidTag(tagName: string, values: string[], replace: boolean=false) {
+        this.addTag('fluids', tagName, values)
+    }
+
+    public addTag(tagType: string, tagName: string, values: string[]) {
+        // if the tag exists add the existing values to the tag
+        if(this.tagMap.containKeys(tagName, tagType)) {
+            this.tagMap.updateValue(tagName, tagType, values);
+        }
+        else {
+            this.tagMap.put(tagName, tagType, values);
+        }
     }
     
     public run(): void {
-        this.map.forEach((v, p) => {
-            writeFileSync(p, JSON.stringify(v, null, 2), 'utf8');
+        this.tagMap.forEach((tagName, tagType, values) => {
+            let split = tagName.split(':');
+            let p = this.createTagPath(join('.', 'generated', this.modid, 'data', split[0], 'tags', tagType, split[1]+'.json'));
+            writeFileSync(p, JSON.stringify({ replace:false, values:values.toArray()}, null, 2), 'utf8');
         })
     }
 }
@@ -242,10 +288,52 @@ export abstract class DataManager extends Manager {
         this.custom('data', join('recipes', path), json);
     }
 
+    recipe(path: string, recipeType: string, json: object) {
+        let output = {
+            type:recipeType
+        }
+
+        for(let index in json) {
+            output[index] = json[index]
+        }
+
+        this.customRecipe(path, output);
+    }
+
     public run(): void {
         super.run();
         this.loots.run();
         this.tags.run();
+    }
+
+    shapedRecipe(name: string, pattern: string[], key: JSObj, result: ItemStack) {
+        this.recipe(name+'.json', 'minecraft:crafting_shaped', {
+            pattern: pattern,
+            key: key,
+            result: result
+        });
+    }
+
+    /**
+     * A recipe with a mod required condition
+     * @param name 
+     * @param pattern 
+     * @param key 
+     * @param result 
+     * @param condition 
+     */
+    conditionalShapedRecipe(name: string, pattern: string[], key: JSObj, result: ItemStack, condition: string) {
+        this.recipe(name+'.json', 'minecraft:crafting_shaped', {
+            pattern: pattern,
+            key: key,
+            result: result,
+            conditions: [
+                {
+                    type: 'forge:mod_loaded',
+                    modid: condition
+                }
+            ]
+        });
     }
 }
 

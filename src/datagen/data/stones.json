@@ -1,0 +1,82 @@
+[
+    {
+        "category": "igneous_intrusive",
+        "name": "granite"
+    },
+    {
+        "category": "igneous_intrusive",
+        "name": "diorite"
+    },
+    {
+        "category": "igneous_intrusive",
+        "name": "gabbro"
+    },
+    {
+        "category": "sedimentary",
+        "name": "shale"
+    },
+    {
+        "category": "sedimentary",
+        "name": "claystone"
+    },
+    {
+        "category": "sedimentary",
+        "name": "limestone"
+    },
+    {
+        "category": "sedimentary",
+        "name": "conglomerate"
+    },
+    {
+        "category": "sedimentary",
+        "name": "dolomite"
+    },
+    {
+        "category": "sedimentary",
+        "name": "chert"
+    },
+    {
+        "category": "sedimentary",
+        "name": "chalk"
+    },
+    {
+        "category": "igneous_extrusive",
+        "name": "rhyolite"
+    },
+    {
+        "category": "igneous_extrusive",
+        "name": "basalt"
+    },
+    {
+        "category": "igneous_extrusive",
+        "name": "andesite"
+    },
+    {
+        "category": "igneous_extrusive",
+        "name": "dacite"
+    },
+    {
+        "category": "metamorphic",
+        "name": "quartzite"
+    },
+    {
+        "category": "metamorphic",
+        "name": "slate"
+    },
+    {
+        "category": "metamorphic",
+        "name": "phyllite"
+    },
+    {
+        "category": "metamorphic",
+        "name": "schist"
+    },
+    {
+        "category": "metamorphic",
+        "name": "gneiss"
+    },
+    {
+        "category": "metamorphic",
+        "name": "marble"
+    }
+]

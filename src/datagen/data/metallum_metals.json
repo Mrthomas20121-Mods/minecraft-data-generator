@@ -1,0 +1,615 @@
+[
+  {
+    "name": "andesite_alloy",
+    "tier": 2,
+    "specific_heat_base": 0.25,
+    "melt_temp": 520,
+    "ingot_heat_capacity": 4,
+    "specific_heat": 0.012,
+    "color": "0xC9CABA",
+    "hasToolArmor": false,
+    "hasParts": true
+  },
+  {
+    "name": "antimony",
+    "tier": 1,
+    "specific_heat_base": 0.25,
+    "melt_temp": 630,
+    "ingot_heat_capacity": 4,
+    "specific_heat": 0.012,
+    "color": "0xf4f4f",
+    "hasToolArmor": false,
+    "hasParts": true
+  },
+  {
+    "name": "alnico",
+    "tier": 3,
+    "specific_heat_base": 0.35,
+    "melt_temp": 1500,
+    "alloy": {
+      "type": "tfc:alloy",
+      "result": "tfc_metallum:alnico",
+      "contents": [
+        {
+          "metal": "tfc_metallum:aluminum",
+          "min": 0.4,
+          "max": 0.6
+        },
+        {
+          "metal": "tfc_metallum:cobalt",
+          "min": 0.2,
+          "max": 0.4
+        },
+        {
+          "metal": "tfc:nickel",
+          "min": 0.2,
+          "max": 0.4
+        }
+      ]
+    },
+    "ingot_heat_capacity": 2.857142857142857,
+    "specific_heat": 0.00857,
+    "color": "0xD87F36",
+    "hasToolArmor": false,
+    "hasParts": true
+  },
+  {
+    "name": "aluminum",
+    "tier": 3,
+    "specific_heat_base": 0.3,
+    "melt_temp": 660,
+    "ingot_heat_capacity": 3.3333333333333335,
+    "specific_heat": 0.01,
+    "color": "0xe3f7f",
+    "hasToolArmor": true,
+    "hasParts": true
+  },
+  {
+    "name": "boron",
+    "tier": 3,
+    "specific_heat_base": 0.3,
+    "melt_temp": 2070,
+    "ingot_heat_capacity": 3.3333333333333335,
+    "specific_heat": 0.01,
+    "color": "0x5c545",
+    "hasToolArmor": true,
+    "hasParts": true
+  },
+  {
+    "name": "beryllium",
+    "tier": 3,
+    "specific_heat_base": 0.35,
+    "melt_temp": 1200,
+    "ingot_heat_capacity": 2.857142857142857,
+    "specific_heat": 0.00857,
+    "color": "0xf6ffc",
+    "hasToolArmor": false,
+    "hasParts": true
+  },
+  {
+    "name": "beryllium_copper",
+    "tier": 3,
+    "specific_heat_base": 0.35,
+    "melt_temp": 1500,
+    "alloy": {
+      "type": "tfc:alloy",
+      "result": "tfc_metallum:beryllium_copper",
+      "contents": [
+        {
+          "metal": "tfc:copper",
+          "min": 0.3,
+          "max": 0.6
+        },
+        {
+          "metal": "tfc_metallum:beryllium",
+          "min": 0.3,
+          "max": 0.6
+        },
+        {
+          "metal": "tfc_metallum:aluminum",
+          "min": 0.1,
+          "max": 0.3
+        }
+      ]
+    },
+    "ingot_heat_capacity": 2.857142857142857,
+    "specific_heat": 0.00857,
+    "color": "0xffa67",
+    "hasToolArmor": true,
+    "hasParts": true
+  },
+  {
+    "name": "blutonium",
+    "tier": 6,
+    "specific_heat_base": 0.35,
+    "melt_temp": 1500,
+    "ingot_heat_capacity": 2.857142857142857,
+    "specific_heat": 0.00857,
+    "color": "0x58a1c",
+    "hasToolArmor": false,
+    "hasParts": true
+  },
+  {
+    "name": "constantan",
+    "tier": 2,
+    "specific_heat_base": 0.5,
+    "melt_temp": 1200,
+    "alloy": {
+      "type": "tfc:alloy",
+      "result": "tfc_metallum:constantan",
+      "contents": [
+        {
+          "metal": "tfc:copper",
+          "min": 0.4,
+          "max": 0.6
+        },
+        {
+          "metal": "tfc:nickel",
+          "min": 0.4,
+          "max": 0.6
+        }
+      ]
+    },
+    "ingot_heat_capacity": 2,
+    "specific_heat": 0.006,
+    "color": "0xfce7b",
+    "hasToolArmor": false,
+    "hasParts": true
+  },
+  {
+    "name": "cobalt",
+    "tier": 3,
+    "specific_heat_base": 0.25,
+    "melt_temp": 1500,
+    "ingot_heat_capacity": 4,
+    "specific_heat": 0.012,
+    "color": "0x59a6e",
+    "hasToolArmor": true,
+    "hasParts": true
+  },
+  {
+    "name": "compressed_iron",
+    "tier": 3,
+    "specific_heat_base": 0.35,
+    "melt_temp": 1535,
+    "ingot_heat_capacity": 2.857142857142857,
+    "specific_heat": 0.00857,
+    "color": "0xbdbdb",
+    "hasToolArmor": true,
+    "hasParts": true
+  },
+  {
+    "name": "electrum",
+    "tier": 2,
+    "specific_heat_base": 0.5,
+    "melt_temp": 1200,
+    "alloy": {
+      "type": "tfc:alloy",
+      "result": "tfc_metallum:electrum",
+      "contents": [
+        {
+          "metal": "tfc:silver",
+          "min": 0.4,
+          "max": 0.6
+        },
+        {
+          "metal": "tfc:gold",
+          "min": 0.4,
+          "max": 0.6
+        }
+      ]
+    },
+    "ingot_heat_capacity": 2,
+    "specific_heat": 0.006,
+    "color": "0xfbfbb",
+    "hasToolArmor": false,
+    "hasParts": true
+  },
+  {
+    "name": "platinum",
+    "tier": 5,
+    "specific_heat_base": 0.35,
+    "melt_temp": 1730,
+    "ingot_heat_capacity": 2.857142857142857,
+    "specific_heat": 0.00857,
+    "color": "0x9CB8BF",
+    "hasToolArmor": false,
+    "hasParts": true
+  },
+  {
+    "name": "enderium",
+    "tier": 5,
+    "specific_heat_base": 0.35,
+    "melt_temp": 1700,
+    "ingot_heat_capacity": 2.857142857142857,
+    "specific_heat": 0.00857,
+    "color": "0x76f0e",
+    "hasToolArmor": true,
+    "hasParts": true
+  },
+  {
+    "name": "ferroboron",
+    "tier": 6,
+    "specific_heat_base": 0.3,
+    "melt_temp": 3000,
+    "alloy": {
+      "type": "tfc:alloy",
+      "result": "tfc_metallum:ferroboron",
+      "contents": [
+        {
+          "metal": "tfc:steel",
+          "min": 0.4,
+          "max": 0.6
+        },
+        {
+          "metal": "tfc_metallum:boron",
+          "min": 0.4,
+          "max": 0.6
+        }
+      ]
+    },
+    "ingot_heat_capacity": 3.3333333333333335,
+    "specific_heat": 0.01,
+    "color": "0x6f737",
+    "hasToolArmor": true,
+    "hasParts": true
+  },
+  {
+    "name": "florentine_bronze",
+    "tier": 3,
+    "specific_heat_base": 0.35,
+    "melt_temp": 400,
+    "alloy": {
+      "type": "tfc:alloy",
+      "result": "tfc_metallum:florentine_bronze",
+      "contents": [
+        {
+          "metal": "tfc:copper",
+          "min": 0.6,
+          "max": 0.8
+        },
+        {
+          "metal": "tfc_metallum:aluminum",
+          "min": 0.1,
+          "max": 0.2
+        },
+        {
+          "metal": "tfc_metallum:antimony",
+          "min": 0.1,
+          "max": 0.2
+        }
+      ]
+    },
+    "ingot_heat_capacity": 2.857142857142857,
+    "specific_heat": 0.00857,
+    "color": "0xAA924C",
+    "hasToolArmor": true,
+    "hasParts": true
+  },
+  {
+    "name": "graphite",
+    "tier": 3,
+    "specific_heat_base": 0.35,
+    "melt_temp": 500,
+    "ingot_heat_capacity": 2.857142857142857,
+    "specific_heat": 0.00857,
+    "color": "0x81808",
+    "hasToolArmor": false,
+    "hasParts": true
+  },
+  {
+    "name": "invar",
+    "tier": 3,
+    "specific_heat_base": 0.35,
+    "melt_temp": 1450,
+    "alloy": {
+      "type": "tfc:alloy",
+      "result": "tfc_metallum:invar",
+      "contents": [
+        {
+          "metal": "tfc:wrought_iron",
+          "min": 0.6,
+          "max": 0.7
+        },
+        {
+          "metal": "tfc:nickel",
+          "min": 0.3,
+          "max": 0.4
+        }
+      ]
+    },
+    "ingot_heat_capacity": 2.857142857142857,
+    "specific_heat": 0.00857,
+    "color": "0xdbdcc",
+    "hasToolArmor": true,
+    "hasParts": true
+  },
+  {
+    "name": "iridium",
+    "tier": 3,
+    "specific_heat_base": 0.35,
+    "melt_temp": 2490,
+    "ingot_heat_capacity": 2.857142857142857,
+    "specific_heat": 0.00857,
+    "color": "0xe8f9f",
+    "hasToolArmor": false,
+    "hasParts": true
+  },
+  {
+    "name": "lead",
+    "tier": 1,
+    "specific_heat_base": 0.22,
+    "melt_temp": 328,
+    "ingot_heat_capacity": 4.545454545454546,
+    "specific_heat": 0.01364,
+    "color": "0x72798",
+    "hasToolArmor": false,
+    "hasParts": true
+  },
+  {
+    "name": "lumium",
+    "tier": 4,
+    "specific_heat_base": 0.35,
+    "melt_temp": 1500,
+    "ingot_heat_capacity": 2.857142857142857,
+    "specific_heat": 0.00857,
+    "color": "0xfff1a",
+    "hasToolArmor": true,
+    "hasParts": true
+  },
+  {
+    "name": "mithril",
+    "tier": 2,
+    "specific_heat_base": 0.35,
+    "melt_temp": 940,
+    "alloy": {
+      "type": "tfc:alloy",
+      "result": "tfc_metallum:mithril",
+      "contents": [
+        {
+          "metal": "tfc:copper",
+          "min": 0.88,
+          "max": 0.92
+        },
+        {
+          "metal": "tfc_metallum:antimony",
+          "min": 0.08,
+          "max": 0.12
+        }
+      ]
+    },
+    "ingot_heat_capacity": 2.857142857142857,
+    "specific_heat": 0.00857,
+    "color": "0x89d9f",
+    "hasToolArmor": true,
+    "hasParts": true
+  },
+  {
+    "name": "nickel_silver",
+    "tier": 2,
+    "specific_heat_base": 0.35,
+    "melt_temp": 1450,
+    "alloy": {
+      "type": "tfc:alloy",
+      "result": "tfc_metallum:nickel_silver",
+      "contents": [
+        {
+          "metal": "tfc:copper",
+          "min": 0.5,
+          "max": 0.65
+        },
+        {
+          "metal": "tfc:zinc",
+          "min": 0.1,
+          "max": 0.3
+        },
+        {
+          "metal": "tfc:nickel",
+          "min": 0.1,
+          "max": 0.3
+        }
+      ]
+    },
+    "ingot_heat_capacity": 2.857142857142857,
+    "specific_heat": 0.00857,
+    "color": "0xa4a3a",
+    "hasToolArmor": true,
+    "hasParts": true
+  },
+  {
+    "name": "osmium",
+    "tier": 3,
+    "specific_heat_base": 0.35,
+    "melt_temp": 3025,
+    "ingot_heat_capacity": 2.857142857142857,
+    "specific_heat": 0.00857,
+    "color": "0xddeff",
+    "hasToolArmor": true,
+    "hasParts": true
+  },
+  {
+    "name": "osmiridium",
+    "tier": 3,
+    "specific_heat_base": 0.35,
+    "melt_temp": 1500,
+    "alloy": {
+      "type": "tfc:alloy",
+      "result": "tfc_metallum:osmiridium",
+      "contents": [
+        {
+          "metal": "tfc_metallum:osmium",
+          "min": 0.6,
+          "max": 0.8
+        },
+        {
+          "metal": "tfc_metallum:iridium",
+          "min": 0.2,
+          "max": 0.4
+        }
+      ]
+    },
+    "color": "0xb2c1c",
+    "ingot_heat_capacity": 2.857142857142857,
+    "specific_heat": 0.00857,
+    "hasToolArmor": true,
+    "hasParts": true
+  },
+  {
+    "name": "pewter",
+    "tier": 3,
+    "specific_heat_base": 0.35,
+    "melt_temp": 1500,
+    "alloy": {
+      "type": "tfc:alloy",
+      "result": "tfc_metallum:pewter",
+      "contents": [
+        {
+          "metal": "tfc_metallum:antimony",
+          "min": 0.6,
+          "max": 0.8
+        },
+        {
+          "metal": "tfc_metallum:lead",
+          "min": 0.2,
+          "max": 0.4
+        }
+      ]
+    },
+    "ingot_heat_capacity": 2.857142857142857,
+    "specific_heat": 0.00857,
+    "color": "0xb0aba",
+    "hasToolArmor": true,
+    "hasParts": true
+  },
+  {
+    "name": "pink_slime",
+    "tier": 3,
+    "specific_heat_base": 0.35,
+    "melt_temp": 1000,
+    "ingot_heat_capacity": 2.857142857142857,
+    "specific_heat": 0.00857,
+    "color": "0xC279B6",
+    "hasToolArmor": false,
+    "hasParts": true
+  },
+  {
+    "name": "refined_glowstone",
+    "tier": 4,
+    "specific_heat_base": 0.35,
+    "melt_temp": 1500,
+    "ingot_heat_capacity": 2.857142857142857,
+    "specific_heat": 0.00857,
+    "color": "0xfffdc",
+    "hasToolArmor": true,
+    "hasParts": true
+  },
+  {
+    "name": "refined_obsidian",
+    "tier": 4,
+    "specific_heat_base": 0.35,
+    "melt_temp": 1500,
+    "ingot_heat_capacity": 2.857142857142857,
+    "specific_heat": 0.00857,
+    "color": "0xbc92d",
+    "hasToolArmor": true,
+    "hasParts": true
+  },
+  {
+    "name": "signalum",
+    "tier": 4,
+    "specific_heat_base": 0.35,
+    "melt_temp": 1500,
+    "ingot_heat_capacity": 2.857142857142857,
+    "specific_heat": 0.00857,
+    "color": "0xffc78",
+    "hasToolArmor": true,
+    "hasParts": true
+  },
+  {
+    "name": "solder",
+    "tier": 3,
+    "specific_heat_base": 0.35,
+    "melt_temp": 400,
+    "alloy": {
+      "type": "tfc:alloy",
+      "result": "tfc_metallum:solder",
+      "contents": [
+        {
+          "metal": "tfc_metallum:antimony",
+          "min": 0.4,
+          "max": 0.6
+        },
+        {
+          "metal": "tfc:bismuth",
+          "min": 0.2,
+          "max": 0.4
+        },
+        {
+          "metal": "tfc:tin",
+          "min": 0.2,
+          "max": 0.4
+        }
+      ]
+    },
+    "ingot_heat_capacity": 2.857142857142857,
+    "specific_heat": 0.00857,
+    "color": "0x888888",
+    "hasToolArmor": false,
+    "hasParts": true
+  },
+  {
+    "name": "thorium",
+    "tier": 6,
+    "specific_heat_base": 0.3,
+    "melt_temp": 1750,
+    "ingot_heat_capacity": 3.3333333333333335,
+    "specific_heat": 0.01,
+    "color": "0x787b7",
+    "hasToolArmor": true,
+    "hasParts": true
+  },
+  {
+    "name": "titanium",
+    "tier": 6,
+    "specific_heat_base": 0.3,
+    "melt_temp": 1700,
+    "ingot_heat_capacity": 3.3333333333333335,
+    "specific_heat": 0.01,
+    "color": "0xd8dae",
+    "hasToolArmor": true,
+    "hasParts": true
+  },
+  {
+    "name": "tungsten",
+    "tier": 6,
+    "specific_heat_base": 0.2,
+    "melt_temp": 3400,
+    "ingot_heat_capacity": 5,
+    "specific_heat": 0.015,
+    "color": "0x97a3b",
+    "hasToolArmor": true,
+    "hasParts": true
+  },
+  {
+    "name": "tungsten_steel",
+    "tier": 6,
+    "specific_heat_base": 0.2,
+    "melt_temp": 3690,
+    "ingot_heat_capacity": 5,
+    "specific_heat": 0.015,
+    "color": "0x555e6",
+    "hasToolArmor": true,
+    "hasParts": true
+  },
+  {
+    "name": "uranium",
+    "tier": 3,
+    "specific_heat_base": 0.35,
+    "melt_temp": 1100,
+    "ingot_heat_capacity": 2.857142857142857,
+    "specific_heat": 0.00857,
+    "color": "0xf0f39",
+    "hasToolArmor": true,
+    "hasParts": true
+  }
+]
