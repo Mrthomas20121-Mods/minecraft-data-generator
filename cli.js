@@ -57,6 +57,8 @@ class TaskMaster {
             exec('tsc -p ./tsconfig.json').addListener('close', () => {
                 exec('node ./src/datagen/metallum.js').addListener('close', () => {
                     copyDirectory('./generated/tfc_metallum/', 'C:/Users/mrtho/Dev/Java/MinecraftMods/TFC Metallum/src/main/resources');
+                }).on('error', (err) => {
+                    console.log(err);
                 });
             });
         });
@@ -64,6 +66,38 @@ class TaskMaster {
             exec('tsc -p ./tsconfig.json').addListener('close', () => {
                 exec('node ./src/datagen/metalwork.js').addListener('close', () => {
                     copyDirectory('./generated/tfc_metalwork/', 'C:/Users/mrtho/Dev/Java/MinecraftMods/TFC-Metalwork/src/main/resources');
+                }).on('error', (err) => {
+                    console.log(err);
+                });
+            });
+        });
+
+        this.registerTask('deco', 'Start the tfc decoration datagen', (args) => {
+            exec('tsc -p ./tsconfig.json').addListener('close', () => {
+                exec('node ./src/datagen/tfc_decoration.js').addListener('close', () => {
+                    copyDirectory('./generated/tfc_decoration/', 'C:/Users/mrtho/Dev/Java/MinecraftMods/TFC-Decoration/src/main/resources');
+                }).on('error', (err) => {
+                    console.log(err);
+                });
+            });
+        });
+
+        this.registerTask('ae2_tools', 'Start the ae2 tools complement datagen', (args) => {
+            exec('tsc -p ./tsconfig.json').addListener('close', () => {
+                exec('node ./src/datagen/ae2_tools.js').addListener('close', () => {
+                    copyDirectory('./generated/ae2_tools/', 'C:/Users/mrtho/Dev/Java/MinecraftMods/ae2_tools_complement/src/main/resources');
+                }).on('error', (err) => {
+                    console.log(err);
+                });
+            });
+        });
+
+        this.registerTask('gravitation', 'Start the aether gravitation datagen', (args) => {
+            exec('tsc -p ./tsconfig.json').addListener('close', () => {
+                exec('node ./src/datagen/aether_gravitation.js').addListener('close', () => {
+                    copyDirectory('./generated/gravitation/', 'C:/Users/mrtho/Dev/Java/MinecraftMods/Aether Gravitation/src/main/resources');
+                }).on('error', (err) => {
+                    console.log(err);
                 });
             });
         });
@@ -80,7 +114,7 @@ class TaskMaster {
     }
 
     run(taskName, args) {
-        this.taskMap.get(taskName).run(args)
+        this.taskMap.get(taskName).run(args);
     }
 }
 

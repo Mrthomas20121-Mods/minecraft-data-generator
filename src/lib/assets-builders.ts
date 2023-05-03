@@ -56,6 +56,54 @@ export class ModelManager {
         };
         this.map.set(savePath, obj);
     }
+
+    public dartShooter(itemName: string) {
+      let savePath = this.createTagPath(join('.', 'generated', this.modid, 'assets', this.modid, 'models', 'item', this.joinString(itemName, '.json')));
+        let obj = {
+            parent: 'minecraft:item/handheld',
+            display: {
+              "thirdperson_lefthand": {
+                "rotation": [
+                  0,
+                  90,
+                  -45
+                ],
+                "scale": [
+                  0.85,
+                  0.85,
+                  0.85
+                ],
+                "translation": [
+                  0,
+                  1.5,
+                  -1
+                ]
+              },
+              "thirdperson_righthand": {
+                "rotation": [
+                  0,
+                  -90,
+                  45
+                ],
+                "scale": [
+                  0.85,
+                  0.85,
+                  0.85
+                ],
+                "translation": [
+                  0,
+                  1.5,
+                  -1
+                ]
+              }
+            },
+            textures:{
+                layer0: `${this.modid}:item/${itemName}`
+            }
+        };
+        this.map.set(savePath, obj);
+    }
+
     public itemModel(itemName: string, parent='item/generated'): void {
         let savePath = this.createTagPath(join('.', 'generated', this.modid, 'assets', this.modid, 'models', 'item', this.joinString(itemName, '.json')));
         let obj = {
@@ -78,12 +126,19 @@ export class ModelManager {
       this.map.set(savePath, obj);
   }
 
-    public decorativeBlocks(blockName: string) {
-        this.block(blockName);
-        this.stairs(blockName, blockName);
-        this.slab(blockName+'_slab', blockName);
-        this.wall(blockName+'_wall', blockName);
-    }
+  public woodDecorativeBlocks(blockName: string) {
+    blockName = blockName+'/planks';
+    this.block(blockName);
+    this.stairs(blockName, blockName);
+    this.slab(blockName+'_slab', blockName);
+}
+
+  public decorativeBlocks(blockName: string) {
+      this.block(blockName);
+      this.stairs(blockName, blockName);
+      this.slab(blockName+'_slab', blockName);
+      this.wall(blockName+'_wall', blockName);
+  }
 
     stairs(blockName: string, otherBlockName: string): void {
         let stairs = this.createTagPath(join('.', 'generated', this.modid, 'assets', this.modid, 'models', 'block', this.joinString(blockName, '_stairs.json')));

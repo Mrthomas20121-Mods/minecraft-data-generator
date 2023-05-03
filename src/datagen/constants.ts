@@ -108,7 +108,7 @@ export const MetamorphicRocks: List<Rock> = AllRocks.filter(rock => rock.categor
 
 export const MetallumOres: List<Ore> = List.from(
     new Ore('bauxite', true, 'aluminum'),
-    new Ore('bertrandite', true, 'berrylium'),
+    new Ore('bertrandite', true, 'beryllium'),
     new Ore('certus_quartz'),
     new Ore('cobaltite', true, 'cobalt'),
     new Ore('galena', true, 'lead'),
@@ -127,39 +127,39 @@ export const MetallumMetals: List<Metal> = List.from(
     new Metal('andesite_alloy', 2, ['part'], 0.25, 520, '0xC9CABA'),
     new Metal('antimony', 1, ['part'], 0.25, 630, '0xf4f4f'),
     new Metal('alnico', 3, ['part'], 0.35, 1500, '0xD87F36'),
-    new Metal('aluminum', 3, ['part, tool'], 0.3, 660, '0xe3f7f'),
-    new Metal('boron', 3, ['part, tool'], 0.3, 2070, '0x5c545'),
+    new Metal('aluminum', 3, ['part', 'tool'], 0.3, 660, '0xe3f7f'),
+    new Metal('boron', 3, ['part', 'tool'], 0.3, 2070, '0x5c545'),
     new Metal('beryllium', 3, ['part'], 0.35, 1200, '0xf6ffc'),
-    new Metal('beryllium_copper', 3, ['part, tool'], 0.35, 1500, '0xffa67'),
+    new Metal('beryllium_copper', 3, ['part', 'tool'], 0.35, 1500, '0xffa67'),
     new Metal('blutonium', 6, ['part'], 0.35, 1500, '0x58a1c'),
     new Metal('constantan', 2, ['part'], 0.5, 1200, '0xfce7b'),
-    new Metal('cobalt', 3, ['part, tool'], 0.25, 1500, '0x59a6e'),
-    new Metal('compressed_iron', 3, ['part, tool'], 0.35, 1535, '0xbdbdb'),
+    new Metal('cobalt', 3, ['part', 'tool'], 0.25, 1500, '0x59a6e'),
+    new Metal('compressed_iron', 3, ['part', 'tool'], 0.35, 1535, '0xbdbdb'),
     new Metal('electrum', 2, ['part'], 0.5, 1200, '0xfbfbb'),
     new Metal('platinum', 5, ['part'], 0.35, 1730, '0x9CB8BF'),
-    new Metal('enderium', 5, ['part, tool'], 0.35, 1700, '0x76f0e'),
-    new Metal('ferroboron', 6, ['part, tool'], 0.3, 3000, '0x6f737'),
-    new Metal('florentine_bronze', 3, ['part, tool'], 0.35, 400, '0xAA924C'),
+    new Metal('enderium', 5, ['part', 'tool'], 0.35, 1700, '0x76f0e'),
+    new Metal('ferroboron', 6, ['part', 'tool'], 0.3, 3000, '0x6f737'),
+    new Metal('florentine_bronze', 3, ['part', 'tool'], 0.35, 400, '0xAA924C'),
     new Metal('graphite', 3, ['part'], 0.35, 500, '0x81808'),
-    new Metal('invar', 3, ['part, tool'], 0.35, 1450, '0xdbdcc'),
+    new Metal('invar', 3, ['part', 'tool'], 0.35, 1450, '0xdbdcc'),
     new Metal('iridium', 3, ['part'], 0.35, 2490, '0xe8f9f'),
     new Metal('lead', 1, ['part'], 0.22, 328, '0x72798'),
-    new Metal('lumium', 4, ['part, tool'], 0.35, 1500, '0xfff1a'),
-    new Metal('mithril', 2, ['part, tool'], 0.35, 940, '0x89d9f'),
-    new Metal('nickel_silver', 2, ['part, tool'], 0.35, 1450, '0xa4a3a'),
-    new Metal('osmium', 3, ['part, tool'], 0.35, 3025, '0xddeff'),
-    new Metal('osmiridium', 3, ['part, tool'], 0.35, 1500, '0xb2c1c'),
-    new Metal('pewter', 3, ['part, tool'], 0.35, 1500, '0xb0aba'),
+    new Metal('lumium', 4, ['part', 'tool'], 0.35, 1500, '0xfff1a'),
+    new Metal('mithril', 2, ['part', 'tool'], 0.35, 940, '0x89d9f'),
+    new Metal('nickel_silver', 2, ['part', 'tool'], 0.35, 1450, '0xa4a3a'),
+    new Metal('osmium', 3, ['part', 'tool'], 0.35, 3025, '0xddeff'),
+    new Metal('osmiridium', 3, ['part', 'tool'], 0.35, 1500, '0xb2c1c'),
+    new Metal('pewter', 3, ['part', 'tool'], 0.35, 1500, '0xb0aba'),
     new Metal('pink_slime', 3, ['part'], 0.35, 1000, '0xC279B6'),
-    new Metal('refined_glowstone', 4, ['part, tool'], 0.35, 1500, '0xfffdc'),
-    new Metal('refined_obsidian', 4, ['part, tool'], 0.35, 1500, '0xbc92d'),
-    new Metal('signalum', 4, ['part, tool'], 0.35, 1500, '0xffc78'),
+    new Metal('refined_glowstone', 4, ['part', 'tool'], 0.35, 1500, '0xfffdc'),
+    new Metal('refined_obsidian', 4, ['part', 'tool'], 0.35, 1500, '0xbc92d'),
+    new Metal('signalum', 4, ['part', 'tool'], 0.35, 1500, '0xffc78'),
     new Metal('solder', 3, ['part'], 0.35, 400, '0x888888'),
-    new Metal('thorium', 6, ['part, tool'], 0.3, 1750, '0x787b7'),
-    new Metal('titanium', 6, ['part, tool'], 0.3, 1700, '0xd8dae'),
-    new Metal('tungsten', 6, ['part, tool'], 0.2, 3400, '0x97a3b'),
-    new Metal('tungsten_steel', 6, ['part, tool'], 0.2, 3690, '0x555e6'),
-    new Metal('uranium', 3, ['part, tool'], 0.35, 1100, '0xf0f39')
+    new Metal('thorium', 6, ['part', 'tool'], 0.3, 1750, '0x787b7'),
+    new Metal('titanium', 6, ['part', 'tool'], 0.3, 1700, '0xd8dae'),
+    new Metal('tungsten', 6, ['part', 'tool'], 0.2, 3400, '0x97a3b'),
+    new Metal('tungsten_steel', 6, ['part', 'tool'], 0.2, 3690, '0x555e6'),
+    new Metal('uranium', 3, ['part', 'tool'], 0.35, 1100, '0xf0f39')
 );
 
 export const TFCMetals: List<Metal> = List.from(
@@ -211,7 +211,7 @@ export const TFC_Metal_Items = {
     'double_sheet': new MetalItem('part', 400, 'item/generated', 'forge:double_sheets', false, false),
     'rod': new MetalItem('part', 50, 'item/generated', 'forge:rods', false, false),
 
-    'tuyere': new MetalItem('tool', 400, 'item/generated', null, false, true),
+    'tuyere': new MetalItem('tool', 400, 'item/generated', 'forge:tuyeres', false, true),
     'fish_hook': new MetalItem('tool', 200, 'item/generated', null, false, false),
     'fishing_rod': new MetalItem('tool', 200, 'item/generated', 'forge:fishing_rods', false, true),
     'pickaxe': new MetalItem('tool', 100, 'item/handheld', null, false, true),
@@ -251,7 +251,7 @@ export const TFC_Metal_Items = {
     'unfinished_boots': new MetalItem('armor', 200, 'item/generated', null, false, false),
     'boots': new MetalItem('armor', 400, 'item/generated', null, false, true),
 
-    'shield': new MetalItem('tool', 400, 'item/handheld', null, false, true)
+    'shield': new MetalItem('shield', 400, 'item/handheld', null, false, true)
 }
 
 export const Metalwork_Items = {

@@ -1,8 +1,48 @@
 import { join } from "path";
 import List from "void-list";
 import { DataManager } from "../lib/managers.js";
-import { JSObj } from "../lib/types.js";
+import { Ingredient, JSObj } from "../lib/types.js";
 import { Rock, Rules } from "./constants.js";
+
+export class CriteriaBuilder {
+
+    private criteria : object = {};
+    private requirements: List<object> = new List();
+
+    public addCriteria(name: string, items: any[]) {
+        if(items[0].hasOwnProperty('item')) {
+            this.criteria[name] = {
+                "trigger": "minecraft:inventory_changed",
+                "conditions": {
+                  "items": [
+                    {
+                        items
+                    }
+                  ]
+                }
+            };
+        }
+        else {
+            this.criteria[name] = {
+                "trigger": "minecraft:inventory_changed",
+                "conditions": {
+                  "items": items
+                }
+            };
+        }
+        this.requirements.add([
+            name
+        ]);
+    }
+
+    public getCriteria(): object {
+        return this.criteria;
+    }
+
+    public getRequirements(): object[] {
+        return this.requirements.toArray();
+    }
+}
 
 export class TFCDataManager extends DataManager {
 
@@ -10,7 +50,7 @@ export class TFCDataManager extends DataManager {
         return new TFCDataManager(modid);
     }
 
-    createIngredient(input: any[]) {
+    createIngredient(input: any[]): object {
         let ingredient = {};
 
         if(input[0] == 'tag') {
@@ -34,8 +74,86 @@ export class TFCDataManager extends DataManager {
         };
     }
 
-    cluster_vein(name: string, rarity: number, minY: number, maxY: number, size: number, density: number, indicator: string, blocks: (rock: Rock) => { weight: number, block: string }[], rockList: List<Rock>) {
+    /**
+     * TFC Specific Advancements
+     * @param name 
+     * @param parent 
+     * @param criteria 
+     * @param displayItem 
+     */
+    advancement(name: string, parent: string, criteria: CriteriaBuilder, displayItem: string, frame: "goal"|"task" = "goal", show_toast: boolean = true, announce_to_chat: boolean = true, hidden: boolean = false) {
+        let translate = name.split('/').join('.');
         
+        let adv = {
+            parent: parent,
+            criteria: criteria.getCriteria(),
+            display: {
+                "icon": {
+                  "item": displayItem
+                },
+                "title": {
+                  "translate": `${this.modid}.advancements.${translate}.title`
+                },
+                "description": {
+                  "translate": `${this.modid}.advancements.${translate}.description`
+                },
+                "frame": frame,
+                "show_toast": show_toast,
+                "announce_to_chat": announce_to_chat,
+                "hidden": hidden,
+                "background": "tfc:textures/block/mud/silt.png"
+              },
+              requirements: criteria.getRequirements()
+        };
+
+        this.customData(join('advancements', name+'.json'), adv);
+    }
+
+    pipe_vein(name: string, rarity: number, minY: number, maxY: number, size: number, density: number, min_skew: number, max_skew: number, min_slant: number, max_slant: number, blocks: (rock: Rock) => { weight?: number, block: string }[], rockList: List<Rock>) {
+        
+        // don't do the tag yet
+        //this.tags.addWorldgenTag('tfc:placed_feature/in_biome/veins', [`tfc_metallum:vein/${name}`]);
+
+        let replacer = rockList.map(rock => { return {
+            replace:[
+                `tfc:rock/raw/${rock.name}`
+            ],
+            with:blocks(rock)
+        } });
+        
+        this.customData(join('worldgen', 'configured_feature', 'vein', `${name}.json`), {
+            "type": "tfc:pipe_vein",
+            "config": {
+              "rarity": rarity,
+              "min_y": {
+                "absolute": minY
+              },
+              "max_y": {
+                "absolute": maxY
+              },
+              "size": size,
+              "density": density,
+              "blocks": replacer.toArray(),
+              "random_name": name,
+              "min_skew": min_skew,
+              "max_skew": max_skew,
+              "min_slant": min_slant,
+              "max_slant": max_slant,
+            }
+        });
+
+        this.customData(join('worldgen', 'placed_feature', 'vein', `${name}.json`), {
+            "feature": `${this.modid}:vein/${name}`,
+            "placement": []
+          });
+    }
+
+
+    cluster_vein(name: string, rarity: number, minY: number, maxY: number, size: number, density: number, indicator: string, blocks: (rock: Rock) => { weight: number, block: string }[], rockList: List<Rock>, indicator_rarity: number = 12) {
+        
+        // don't do the tag yet
+        //this.tags.addWorldgenTag('tfc:placed_feature/in_biome/veins', [`tfc_metallum:vein/${name}`]);
+
         let replacer = rockList.map(rock => { return {
             replace:[
                 `tfc:rock/raw/${rock.name}`
@@ -57,7 +175,7 @@ export class TFCDataManager extends DataManager {
               "density": density,
               "blocks": replacer.toArray(),
               "indicator": {
-                "rarity": 12,
+                "rarity": indicator_rarity,
                 "blocks": [
                   {
                     "block": indicator
@@ -201,7 +319,7 @@ export class TFCDataManager extends DataManager {
             'ingredient': {tag: ingredient},
             'heat_capacity': heat_capacity,
             'forging_temperature': forging_temp,
-            'welding_tempreture': welding_temp
+            'welding_temperature': welding_temp
         });
     }
 
@@ -223,7 +341,29 @@ export class TFCDataManager extends DataManager {
             'ingredient': {item: this.item(ingredient)},
             'heat_capacity': heat_capacity,
             'forging_temperature': forging_temp,
-            'welding_tempreture': welding_temp
+            'welding_temperature': welding_temp
+        });
+    }
+
+    item_heat_ore(path: string, ingredient: object[], heat_capacity: number, melt_temperature: number = null, mb: number = null) {
+
+        let forging_temp = 0;
+        let welding_temp = 0;
+
+        if(melt_temperature != null) {
+            forging_temp = Math.round(melt_temperature * 0.6);
+            welding_temp = Math.round(melt_temperature * 0.8);
+        }
+
+        if(mb != null) {
+            heat_capacity = Math.round(10 * heat_capacity * mb) / 1000;
+        }
+
+        this.customData(join('tfc', 'item_heats', path+'.json'), {
+            'ingredient': ingredient,
+            'heat_capacity': heat_capacity,
+            'forging_temperature': forging_temp,
+            'welding_temperature': welding_temp
         });
     }
 } 

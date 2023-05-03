@@ -3916,13 +3916,12 @@ export class MetallumModelManager extends ModelManager {
 
     public bell(metal: Metal) {
         let blockName = `${metal.name}_bell`;
-        let fullMetal = `${this.modid}:block/full/${metal.name}`;
 
         let fullBlockstatePath = this.createTagPath(join('.', 'generated', this.modid, 'assets', this.modid, 'blockstates', this.joinString(blockName, '.json')));
-        let itemBlock1 = this.createTagPath(join('.', 'generated', this.modid, 'assets', this.modid, 'models', 'block', 'bell', this.joinString(blockName, '_ceiling',  '.json')));
-        let itemBlock2 = this.createTagPath(join('.', 'generated', this.modid, 'assets', this.modid, 'models', 'block', 'bell', this.joinString(blockName, '_double_wall',  '.json')));
-        let itemBlock3 = this.createTagPath(join('.', 'generated', this.modid, 'assets', this.modid, 'models', 'block', 'bell', this.joinString(blockName, '_floor',  '.json')));
-        let itemBlock4 = this.createTagPath(join('.', 'generated', this.modid, 'assets', this.modid, 'models', 'block', 'bell', this.joinString(blockName, '_single_wall',  '.json')));
+        let itemBlock1 = this.createTagPath(join('.', 'generated', this.modid, 'assets', this.modid, 'models', 'block', 'bell', this.joinString(metal.name, '_ceiling',  '.json')));
+        let itemBlock2 = this.createTagPath(join('.', 'generated', this.modid, 'assets', this.modid, 'models', 'block', 'bell', this.joinString(metal.name, '_double_wall',  '.json')));
+        let itemBlock3 = this.createTagPath(join('.', 'generated', this.modid, 'assets', this.modid, 'models', 'block', 'bell', this.joinString(metal.name, '_floor',  '.json')));
+        let itemBlock4 = this.createTagPath(join('.', 'generated', this.modid, 'assets', this.modid, 'models', 'block', 'bell', this.joinString(metal.name, '_single_wall',  '.json')));
 
         this.save(fullBlockstatePath, {
             "variants": {
@@ -4029,7 +4028,7 @@ export class MetallumModelManager extends ModelManager {
             }
         });
 
-        this.itemModel(`${this.modid}:${metal.name}_bell`);
+        this.itemModel(`${metal.name}_bell`);
     }
 
     public bars(metal: Metal) {
@@ -4037,8 +4036,8 @@ export class MetallumModelManager extends ModelManager {
         let itemName = `${this.modid}:block/${blockName}`;
         let fullBlockstatePath = this.createTagPath(join('.', 'generated', this.modid, 'assets', this.modid, 'blockstates', this.joinString(blockName, '.json')));
 
-        let itemBlock1 = this.createTagPath(join('.', 'generated', this.modid, 'assets', this.modid, 'models', 'block', 'bars', this.joinString(blockName, '_caps',  '.json')));
-        let itemBlock2 = this.createTagPath(join('.', 'generated', this.modid, 'assets', this.modid, 'models', 'block', 'bars', this.joinString(blockName, '_caps_alt',  '.json')));
+        let itemBlock1 = this.createTagPath(join('.', 'generated', this.modid, 'assets', this.modid, 'models', 'block', 'bars', this.joinString(blockName, '_cap',  '.json')));
+        let itemBlock2 = this.createTagPath(join('.', 'generated', this.modid, 'assets', this.modid, 'models', 'block', 'bars', this.joinString(blockName, '_cap_alt',  '.json')));
         let itemBlock3 = this.createTagPath(join('.', 'generated', this.modid, 'assets', this.modid, 'models', 'block', 'bars', this.joinString(blockName, '_post',  '.json')));
         let itemBlock4 = this.createTagPath(join('.', 'generated', this.modid, 'assets', this.modid, 'models', 'block', 'bars', this.joinString(blockName, '_post_ends',  '.json')));
         let itemBlock5 = this.createTagPath(join('.', 'generated', this.modid, 'assets', this.modid, 'models', 'block', 'bars', this.joinString(blockName, '_side',  '.json')));
@@ -4199,7 +4198,7 @@ export class MetallumModelManager extends ModelManager {
             }
         });
 
-        this.itemModel(`${this.modid}:${metal.name}_bars`);
+        this.itemBlockModel(`${metal.name}_bars`);
     }
 
     public lamp(blockName: string) {

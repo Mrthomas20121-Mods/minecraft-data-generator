@@ -3,6 +3,7 @@ import { existsSync, mkdirSync, writeFileSync } from 'fs'
 import { Ingredient, ItemStack, JSObj } from "./types.js";
 import List from "void-list";
 import { ModelManager } from "./assets-builders.js";
+import { VoidMap } from "void-map";
 
 abstract class Manager {
 
@@ -91,7 +92,9 @@ export class LangManager extends Manager {
     }
 
     entry(name: string, custom: string): void {
-        this.json[name] = custom;
+        if(!this.json.hasOwnProperty(name)) {
+            this.json[name] = custom;
+        }
     }
 
     public run(): void {
@@ -197,46 +200,8 @@ export class LootManager extends Manager {
     }
 }
 
-export class DoubleKeyMap<A, B, C> {
-    private keys1: List<A> = new List();
-    private keys2: List<B> = new List();
-    private values: List<List<C>> = new List();
-
-    put(key1: A, key2: B, value: C[]) {
-
-        this.keys1.add(key1);
-        this.keys2.add(key2);
-        this.values.add(List.fromArray(value));
-    }
-
-    containKeys(key1: A, key2: B): boolean {
-        return this.keys1.contain(key1) && this.keys2.contain(key2);
-    }
-
-    indexOf(key1: A, key2: B): number {
-        if(this.containKeys(key1, key2)) {
-            return this.keys1.indexOf(key1);
-        }
-    }
-
-    updateValue(key1: A, key2: B, elementsToAdd: C[]) {
-        let index = this.indexOf(key1, key2);
-        this.values.get(index).fromArray(elementsToAdd);
-    }
-
-    public forEach(predicate: (key1:A, key2: B, value: List<C>) => void): void {
-        for(let i = 0; i<this.keys1.size(); i++) {
-            let key1 = this.keys1.get(i);
-            let key2 = this.keys2.get(i);
-            let value = this.values.get(i);
-            predicate(key1, key2, value);
-        }
-    }
-}
-
 export class TagManager extends Manager {
-
-    private tagMap: DoubleKeyMap<string, string, string> = new DoubleKeyMap();
+    private tags: VoidMap<string, List<string>> = new VoidMap();
 
     public addBlockTag(tagName: string, values: string[], replace: boolean=false) {
         this.addTag('blocks', tagName, values)
@@ -250,22 +215,33 @@ export class TagManager extends Manager {
         this.addTag('fluids', tagName, values)
     }
 
+    public addWorldgenTag(tagName: string, values: string[], replace: boolean=false) {
+        this.addTag('worldgen', tagName, values)
+    }
+
     public addTag(tagType: string, tagName: string, values: string[]) {
-        // if the tag exists add the existing values to the tag
-        if(this.tagMap.containKeys(tagName, tagType)) {
-            this.tagMap.updateValue(tagName, tagType, values);
+        let finalKey = `${tagType}-${tagName}`;
+
+        if(this.tags.containKey(finalKey)) {
+            let list = this.tags.get(finalKey);
+            list.fromArray(values);
+            this.tags.put(finalKey, list);
         }
         else {
-            this.tagMap.put(tagName, tagType, values);
+            this.tags.put(finalKey, List.fromArray(values));
         }
     }
     
     public run(): void {
-        this.tagMap.forEach((tagName, tagType, values) => {
+        for(let [tag, values] of this.tags.entries()) {
+            let s = tag.split('-');
+            let tagName = s[1];
+            let tagType = s[0];
+
             let split = tagName.split(':');
             let p = this.createTagPath(join('.', 'generated', this.modid, 'data', split[0], 'tags', tagType, split[1]+'.json'));
             writeFileSync(p, JSON.stringify({ replace:false, values:values.toArray()}, null, 2), 'utf8');
-        })
+        }
     }
 }
 
