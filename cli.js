@@ -92,6 +92,27 @@ class TaskMaster {
             });
         });
 
+        this.registerTask('botanical', 'Start the Botania tools complement datagen', (args) => {
+            exec('tsc -p ./tsconfig.json').addListener('close', () => {
+                exec('node ./src/datagen/botanical_complement.js').addListener('close', () => {
+                    copyDirectory('./generated/botanical_complement/', 'C:/Users/mrtho/Dev/Java/MinecraftMods/botanical_complement/src/main/resources');
+                }).on('error', (err) => {
+                    console.log(err);
+                });
+            });
+        });
+
+        this.registerTask('create', 'Start the Create tools complement datagen', (args) => {
+            exec('tsc -p ./tsconfig.json').addListener('close', () => {
+                exec('node ./src/datagen/create_tools.js').addListener('close', () => {
+                    copyDirectory('./generated/create_tools/', 'C:/Users/mrtho/Dev/Java/MinecraftMods/create_tools_complement/src/main/resources');
+                }).on('error', (err) => {
+                    console.log(err);
+                });
+            });
+        });
+
+
         this.registerTask('gravitation', 'Start the aether gravitation datagen', (args) => {
             exec('tsc -p ./tsconfig.json').addListener('close', () => {
                 exec('node ./src/datagen/aether_gravitation.js').addListener('close', () => {

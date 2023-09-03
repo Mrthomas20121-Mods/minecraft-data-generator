@@ -115,7 +115,15 @@ export class ModelManager {
         this.map.set(savePath, obj);
     }
 
-    public itemBlockModel(itemName: string): void {
+  public itemBlock(itemName: string): void {
+      let savePath = this.createTagPath(join('.', 'generated', this.modid, 'assets', this.modid, 'models', 'item', this.joinString(itemName, '.json')));
+      let obj = {
+          parent: `${this.modid}:block/${itemName}`
+      };
+      this.map.set(savePath, obj);
+  }
+
+  public itemBlockModel(itemName: string): void {
       let savePath = this.createTagPath(join('.', 'generated', this.modid, 'assets', this.modid, 'models', 'item', this.joinString(itemName, '.json')));
       let obj = {
           parent: 'item/generated',
@@ -126,12 +134,199 @@ export class ModelManager {
       this.map.set(savePath, obj);
   }
 
+  public fence(blockName: string) {
+    // fence inventory
+    this.itemBlock(blockName+'_fence_inventory');
+
+    this.save(this.createTagPath(join('.', 'generated', this.modid, 'assets', this.modid, 'models', 'block', this.joinString(blockName, '_fence.json'))), {
+      parent:'minecraft:block/fence_inventory',
+      textures: {
+        texture: `${this.modid}:block/${blockName}_planks`
+      }
+    });
+
+    this.save(this.createTagPath(join('.', 'generated', this.modid, 'assets', this.modid, 'models', 'block', this.joinString(blockName, '_fence_post.json'))), {
+      parent:'minecraft:block/fence_post',
+      textures: {
+        texture: `${this.modid}:block/${blockName}_planks`
+      }
+    });
+
+    this.save(this.createTagPath(join('.', 'generated', this.modid, 'assets', this.modid, 'models', 'block', this.joinString(blockName, '_fence_side.json'))), {
+      parent:'minecraft:block/fence_side',
+      textures: {
+        texture: `${this.modid}:block/${blockName}_planks`
+      }
+    });
+
+    this.save(this.createTagPath(join('.', 'generated', this.modid, 'assets', this.modid, 'blockstates', this.joinString(blockName, '_fence.json'))), {
+      "multipart": [
+        {
+          "apply": {
+            "model": `${this.modid}:block/${blockName}_fence_post`
+          }
+        },
+        {
+          "when": {
+            "north": "true"
+          },
+          "apply": {
+            "model": `${this.modid}:block/${blockName}_fence_side`,
+            "uvlock": true
+          }
+        },
+        {
+          "when": {
+            "east": "true"
+          },
+          "apply": {
+            "model": `${this.modid}:block/${blockName}_fence_side`,
+            "y": 90,
+            "uvlock": true
+          }
+        },
+        {
+          "when": {
+            "south": "true"
+          },
+          "apply": {
+            "model": `${this.modid}:block/${blockName}_fence_side`,
+            "y": 180,
+            "uvlock": true
+          }
+        },
+        {
+          "when": {
+            "west": "true"
+          },
+          "apply": {
+            "model": `${this.modid}:block/${blockName}_fence_side`,
+            "y": 270,
+            "uvlock": true
+          }
+        }
+      ]
+    });
+  }
+
+  public fenceGate(blockName: string) {
+    this.itemBlock(blockName+'_fence_gate');
+
+    this.save(this.createTagPath(join('.', 'generated', this.modid, 'assets', this.modid, 'models', 'block', this.joinString(blockName, '_fence_gate.json'))), {
+      parent:'minecraft:block/template_fence_gate',
+      textures: {
+        texture: `${this.modid}:block/${blockName}_planks`
+      }
+    });
+
+    this.save(this.createTagPath(join('.', 'generated', this.modid, 'assets', this.modid, 'models', 'block', this.joinString(blockName, '_fence_gate_open.json'))), {
+      parent:'minecraft:block/template_fence_gate_wall',
+      textures: {
+        texture: `${this.modid}:block/${blockName}_planks`
+      }
+    });
+
+    this.save(this.createTagPath(join('.', 'generated', this.modid, 'assets', this.modid, 'models', 'block', this.joinString(blockName, '_fence_gate_wall.json'))), {
+      parent:'minecraft:block/template_fence_gate_open',
+      textures: {
+        texture: `${this.modid}:block/${blockName}_planks`
+      }
+    });
+
+    this.save(this.createTagPath(join('.', 'generated', this.modid, 'assets', this.modid, 'models', 'block', this.joinString(blockName, '_fence_gate_wall_open.json'))), {
+      parent:'minecraft:block/template_fence_gate_wall_open',
+      textures: {
+        texture: `${this.modid}:block/${blockName}_planks`
+      }
+    });
+
+    this.save(this.createTagPath(join('.', 'generated', this.modid, 'assets', this.modid, 'blockstates', this.joinString(blockName, '_fence_gate.json'))), {
+      "variants": {
+        "facing=east,in_wall=false,open=false": {
+          "uvlock": true,
+          "y": 270,
+          "model": `${this.modid}:block/${blockName}_fence_gate`
+        },
+        "facing=east,in_wall=false,open=true": {
+          "uvlock": true,
+          "y": 270,
+          "model": `${this.modid}:block/${blockName}_fence_gate_open`
+        },
+        "facing=east,in_wall=true,open=false": {
+          "uvlock": true,
+          "y": 270,
+          "model": `${this.modid}:block/${blockName}_fence_gate_wall`
+        },
+        "facing=east,in_wall=true,open=true": {
+          "uvlock": true,
+          "y": 270,
+          "model": `${this.modid}:block/${blockName}_fence_gate_wall_open`
+        },
+        "facing=north,in_wall=false,open=false": {
+          "uvlock": true,
+          "y": 180,
+          "model": `${this.modid}:block/${blockName}_fence_gate`
+        },
+        "facing=north,in_wall=false,open=true": {
+          "uvlock": true,
+          "y": 180,
+          "model": `${this.modid}:block/${blockName}_fence_gate_open`
+        },
+        "facing=north,in_wall=true,open=false": {
+          "uvlock": true,
+          "y": 180,
+          "model": `${this.modid}:block/${blockName}_fence_gate_wall`
+        },
+        "facing=north,in_wall=true,open=true": {
+          "uvlock": true,
+          "y": 180,
+          "model": `${this.modid}:block/${blockName}_fence_gate_wall_open`
+        },
+        "facing=south,in_wall=false,open=false": {
+          "uvlock": true,
+          "model": `${this.modid}:block/${blockName}_fence_gate`
+        },
+        "facing=south,in_wall=false,open=true": {
+          "uvlock": true,
+          "model": `${this.modid}:block/${blockName}_fence_gate_open`
+        },
+        "facing=south,in_wall=true,open=false": {
+          "uvlock": true,
+          "model": `${this.modid}:block/${blockName}_fence_gate_wall`
+        },
+        "facing=south,in_wall=true,open=true": {
+          "uvlock": true,
+          "model": `${this.modid}:block/${blockName}_fence_gate_wall_open`
+        },
+        "facing=west,in_wall=false,open=false": {
+          "uvlock": true,
+          "y": 90,
+          "model": `${this.modid}:block/${blockName}_fence_gate`
+        },
+        "facing=west,in_wall=false,open=true": {
+          "uvlock": true,
+          "y": 90,
+          "model": `${this.modid}:block/${blockName}_fence_gate_open`
+        },
+        "facing=west,in_wall=true,open=false": {
+          "uvlock": true,
+          "y": 90,
+          "model": `${this.modid}:block/${blockName}_fence_gate_wall`
+        },
+        "facing=west,in_wall=true,open=true": {
+          "uvlock": true,
+          "y": 90,
+          "model": `${this.modid}:block/${blockName}_fence_gate_wall_open`
+        }
+      }
+    });
+  }
+
   public woodDecorativeBlocks(blockName: string) {
-    blockName = blockName+'/planks';
-    this.block(blockName);
-    this.stairs(blockName, blockName);
-    this.slab(blockName+'_slab', blockName);
-}
+    this.block(blockName+'_planks');
+    this.stairs(blockName, blockName+'_planks');
+    this.slab(blockName+'_slab', blockName+'_planks');
+  }
 
   public decorativeBlocks(blockName: string) {
       this.block(blockName);

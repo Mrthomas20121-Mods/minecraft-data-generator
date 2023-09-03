@@ -266,6 +266,8 @@ export const Metalwork_Items = {
 export const Metalwork_Blocks = {
     'block': new MetalItem('part', 400, 'item/generated', 'forge:storage_blocks', false),
     'cut': new MetalItem('part', 400, 'item/generated', 'tfc_metalwork:cut', false),
+    'oxidized': new MetalItem('part', 400, 'item/generated', 'forge:storage_blocks', false),
+    'oxidized_cut': new MetalItem('part', 400, 'item/generated', 'tfc_metalwork:cut', false),
     'ladder': new MetalItem('part', 200, 'item/generated', 'tfc_metalwork:metal_ladders', false) 
 }
 
