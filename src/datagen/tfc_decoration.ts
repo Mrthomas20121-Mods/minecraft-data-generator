@@ -124,12 +124,13 @@ manager.run((assets: AssetManager, data: TFCDataManager, modid: string) => {
         data.loots.dropBlock(`wood/${color}_terracotta_slab`);
         data.loots.dropBlock(`wood/${color}_terracotta_stairs`);
 
-        data.shapedRecipe(`crafting/wood/${color}_stairs`, ['#  ', '##', '###'], {
+        data.shapedRecipe(`crafting/wood/${color}_stairs`, ['  #', ' ##', '###'], {
             '#': {
                 item:`${modid}:wood/${color}_planks`
             }
         }, {
-            item: `${modid}:wood/${color}_stairs`
+            item: `${modid}:wood/${color}_stairs`,
+            count: 4
         });
 
         data.shapedRecipe(`crafting/wood/${color}_slab`, ['###'], {
@@ -137,15 +138,17 @@ manager.run((assets: AssetManager, data: TFCDataManager, modid: string) => {
                 item:`${modid}:wood/${color}_planks`
             }
         }, {
-            item: `${modid}:wood/${color}_slab`
+            item: `${modid}:wood/${color}_slab`,
+            count: 6
         });
 
-        data.shapedRecipe(`crafting/wood/${color}_terracotta_stairs`, ['#  ', '##', '###'], {
+        data.shapedRecipe(`crafting/wood/${color}_terracotta_stairs`, ['  #', ' ##', '###'], {
             '#': {
                 item:`${modid}:wood/${color}_terracotta_planks`
             }
         }, {
-            item: `${modid}:wood/${color}_terracotta_stairs`
+            item: `${modid}:wood/${color}_terracotta_stairs`,
+            count: 4
         });
 
         data.shapedRecipe(`crafting/wood/${color}_terracotta_slab`, ['###'], {
@@ -153,7 +156,8 @@ manager.run((assets: AssetManager, data: TFCDataManager, modid: string) => {
                 item:`${modid}:wood/${color}_terracotta_planks`
             }
         }, {
-            item: `${modid}:wood/${color}_terracotta_slab`
+            item: `${modid}:wood/${color}_terracotta_slab`,
+            count: 6
         });
 
         data.recipe(`crafting/wood/${color}_lumber.json`, 'tfc:damage_inputs_shapeless_crafting', {
