@@ -109,7 +109,7 @@ export class TFCDataManager extends DataManager {
         this.customData(join('advancements', name+'.json'), adv);
     }
 
-    pipe_vein(name: string, rarity: number, minY: number, maxY: number, size: number, density: number, min_skew: number, max_skew: number, min_slant: number, max_slant: number, blocks: (rock: Rock) => { weight?: number, block: string }[], rockList: List<Rock>) {
+    pipe_vein2(name: string, rarity: number, minY: number, maxY: number, size: number, density: number, min_skew: number, max_skew: number, min_slant: number, max_slant: number, blocks: (rock: Rock) => { weight?: number, block: string }[], rockList: List<Rock>, indicator: string, indicator2: string, indicator_rarity: number = 12) {
         
         // don't do the tag yet
         //this.tags.addWorldgenTag('tfc:placed_feature/in_biome/veins', [`tfc_metallum:vein/${name}`]);
@@ -139,6 +139,56 @@ export class TFCDataManager extends DataManager {
               "max_skew": max_skew,
               "min_slant": min_slant,
               "max_slant": max_slant,
+              "indicator": {
+                "rarity": indicator_rarity,
+                "blocks": [
+                  {
+                    "block": indicator
+                  },
+                  {
+                    "block": indicator2
+                  }
+                ]
+              }
+            }
+        });
+
+        this.customData(join('worldgen', 'placed_feature', 'vein', `${name}.json`), {
+            "feature": `${this.modid}:vein/${name}`,
+            "placement": []
+          });
+    }
+
+    pipe_vein(name: string, rarity: number, minY: number, maxY: number, size: number, density: number, min_skew: number, max_skew: number, min_slant: number, max_slant: number, blocks: (rock: Rock) => { weight?: number, block: string }[], rockList: List<Rock>) {
+        
+        // don't do the tag yet
+        //this.tags.addWorldgenTag('tfc:placed_feature/in_biome/veins', [`tfc_metallum:vein/${name}`]);
+
+        let replacer = rockList.map(rock => { return {
+            replace:[
+                `tfc:rock/raw/${rock.name}`
+            ],
+            with:blocks(rock)
+        } });
+        
+        this.customData(join('worldgen', 'configured_feature', 'vein', `${name}.json`), {
+            "type": "tfc:pipe_vein",
+            "config": {
+              "rarity": rarity,
+              "min_y": {
+                "absolute": minY
+              },
+              "max_y": {
+                "absolute": maxY
+              },
+              "size": size,
+              "density": density,
+              "blocks": replacer.toArray(),
+              "random_name": name,
+              "min_skew": min_skew,
+              "max_skew": max_skew,
+              "min_slant": min_slant,
+              "max_slant": max_slant
             }
         });
 

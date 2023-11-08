@@ -173,7 +173,7 @@ manager.run((assets, data, modid) => {
         return  [ { block: `tfc_metallum:ore/certus_quartz/${rock.name}` } ];
     }, AllRocks.filter(rock => rock.name == 'quartzite' || rock.name == 'schist' || rock.name == 'granite' || rock.name == 'gneiss' || rock.name == 'shale'));
 
-    data.pipe_vein('deep_native_osmium', 35, -60, -10, 40, 0.4, 5, 15, 0, 3, (rock) => {
+    data.pipe_vein2('deep_native_osmium', 35, -60, -10, 40, 0.4, 5, 15, 0, 3, (rock) => {
         return  [
             { weight:10, block:`${modid}:ore/poor_native_osmium/${rock.name}` },
             { weight:30, block:`${modid}:ore/normal_native_osmium/${rock.name}` },
@@ -182,9 +182,9 @@ manager.run((assets, data, modid) => {
             { weight:30, block:`${modid}:ore/normal_native_iridium/${rock.name}` },
             { weight:15, block:`${modid}:ore/rich_native_iridium/${rock.name}` }
         ];
-    }, List.merge(SedimentaryRocks.filter(rock => rock.name == 'limestone' || rock.name == 'claystone'), MetamorphicRocks));
+    }, List.merge(SedimentaryRocks.filter(rock => rock.name == 'limestone' || rock.name == 'claystone'), MetamorphicRocks), 'tfc_metallum:ore_small_osmium', 'tfc_metallum:ore_small_iridium');
 
-    data.pipe_vein('normal_native_osmium', 27, 0, 100, 40, 0.4, 5, 13, 0, 2, (rock) => {
+    data.pipe_vein2('normal_native_osmium', 27, 0, 100, 40, 0.4, 5, 13, 0, 2, (rock) => {
         return  [
             { weight:10, block:`${modid}:ore/poor_native_osmium/${rock.name}` },
             { weight:30, block:`${modid}:ore/normal_native_osmium/${rock.name}` },
@@ -193,7 +193,7 @@ manager.run((assets, data, modid) => {
             { weight:30, block:`${modid}:ore/normal_native_iridium/${rock.name}` },
             { weight:15, block:`${modid}:ore/rich_native_iridium/${rock.name}` }
         ];
-    }, List.merge(SedimentaryRocks.filter(rock => rock.name == 'limestone' || rock.name == 'claystone'), MetamorphicRocks));
+    }, List.merge(SedimentaryRocks.filter(rock => rock.name == 'limestone' || rock.name == 'claystone'), MetamorphicRocks), 'tfc_metallum:ore_small_osmium', 'tfc_metallum:ore_small_iridium');
 
     data.cluster_vein('deep_rutile', 10, -70, -15, 19, 0.5, 'tfc_metallum:ore/small_rutile', (rock) => { return [
         { weight:20, block:`${modid}:ore/poor_rutile/${rock.name}` },
