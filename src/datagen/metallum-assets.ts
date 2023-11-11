@@ -46,16 +46,16 @@ export class MetallumModelManager extends ModelManager {
             },
             "perspectives": {
               "none": {
-                "parent": `tfc_metallum:item/metal/javelin/${metal.name}_in_gui`
+                "parent": `tfc_metallum:item/metal/javelin/${metal.name}_gui`
               },
               "fixed": {
-                "parent": `tfc_metallum:item/metal/javelin/${metal.name}_in_gui`
+                "parent": `tfc_metallum:item/metal/javelin/${metal.name}_gui`
               },
               "ground": {
-                "parent": `tfc_metallum:item/metal/javelin/${metal.name}_in_gui`
+                "parent": `tfc_metallum:item/metal/javelin/${metal.name}_gui`
               },
               "gui": {
-                "parent": `tfc_metallum:item/metal/javelin/${metal.name}_in_gui`
+                "parent": `tfc_metallum:item/metal/javelin/${metal.name}_gui`
               }
             }
         }

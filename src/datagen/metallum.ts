@@ -319,6 +319,21 @@ manager.run((assets, data, modid) => {
             "break_chance": 0.1
         });
 
+        data.customRecipe(join('casting', metal.name+'_fire_ingot.json'), {
+            "type": "tfc:casting",
+            "mold": {
+              "item": "tfc:ceramic/fire_ingot_mold"
+            },
+            "fluid": {
+              "ingredient": `tfc_metallum:metal/${metal.name}`,
+              "amount": 100
+            },
+            "result": {
+              "item": `tfc_metallum:metal/ingot/${metal.name}`
+            },
+            "break_chance": 0.1
+        });
+
         // lang
         assets.lang.entry(`metal.tfc_metallum.${metal.name}`, cap(metal.name));
         assets.lang.entry(`fluid.tfc_metallum.metal.${metal.name}`, `Molten ${cap(metal.name)}`);
