@@ -56,7 +56,7 @@ class TaskMaster {
         this.registerTask('metallum', 'Start the metallum datagen', (args) => {
             exec('tsc -p ./tsconfig.json').addListener('close', () => {
                 exec('node ./src/datagen/metallum.js').addListener('close', () => {
-                    copyDirectory('./generated/tfc_metallum/', 'C:/Users/mrtho/Dev/Java/MinecraftMods/TFC Metallum/src/main/resources');
+                    //copyDirectory('./generated/tfc_metallum/', 'C:/Users/mrtho/Dev/Java/MinecraftMods/TFC Metallum/src/main/resources');
                 }).on('error', (err) => {
                     console.log(err);
                 });
@@ -75,7 +75,7 @@ class TaskMaster {
         this.registerTask('deco', 'Start the tfc decoration datagen', (args) => {
             exec('tsc -p ./tsconfig.json').addListener('close', () => {
                 exec('node ./src/datagen/tfc_decoration.js').addListener('close', () => {
-                    copyDirectory('./generated/tfc_decoration/', 'C:/Users/mrtho/Dev/Java/MinecraftMods/TFC-Decoration/src/main/resources');
+                    //copyDirectory('./generated/tfc_decoration/', 'C:/Users/mrtho/Dev/Java/MinecraftMods/TFC-Decoration/src/main/resources');
                 }).on('error', (err) => {
                     console.log(err);
                 });

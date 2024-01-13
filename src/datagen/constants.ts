@@ -149,16 +149,17 @@ export const MetallumMetals: List<Metal> = List.from(
     new Metal('nickel_silver', 2, ['part', 'tool'], 0.35, 1450, '0xa4a3a'),
     new Metal('osmium', 3, ['part', 'tool'], 0.35, 1535, '0xddeff'),
     new Metal('osmiridium', 3, ['part', 'tool'], 0.35, 1500, '0xb2c1c'),
-    new Metal('pewter', 3, ['part', 'tool'], 0.35, 1500, '0xb0aba'),
+    new Metal('pewter', 2, ['part', 'tool'], 0.35, 1500, '0xb0aba'),
     new Metal('pink_slime', 3, ['part'], 0.35, 1000, '0xC279B6'),
     new Metal('refined_glowstone', 4, ['part', 'tool'], 0.35, 1500, '0xfffdc'),
     new Metal('refined_obsidian', 4, ['part', 'tool'], 0.35, 1500, '0xbc92d'),
     new Metal('signalum', 4, ['part', 'tool'], 0.35, 1500, '0xffc78'),
     new Metal('solder', 3, ['part'], 0.35, 400, '0x888888'),
-    new Metal('thorium', 6, ['part', 'tool'], 0.3, 1535, '0x787b7'),
-    new Metal('titanium', 6, ['part', 'tool'], 0.3, 1535, '0xd8dae'),
-    new Metal('tungsten', 6, ['part', 'tool'], 0.2, 1535, '0x97a3b'),
-    new Metal('tungsten_steel', 6, ['part', 'tool'], 0.2, 1535, '0x555e6'),
+    new Metal('thorium', 3, ['part', 'tool'], 0.3, 1535, '0x787b7'),
+    new Metal('titanium', 3, ['part', 'tool'], 0.3, 1535, '0xd8dae'),
+    new Metal('tungsten', 3, ['part', 'tool'], 0.2, 1535, '0x97a3b'),
+    new Metal('tungsten_steel', 4, ['part', 'tool'], 0.2, 1535, '0x555e6'),
+    new Metal('tungsten_steel', 4, [], 0.2, 1535, '0x555e6'),
     new Metal('uranium', 3, ['part', 'tool'], 0.35, 1100, '0xf0f39')
 );
 
@@ -303,3 +304,49 @@ export enum Rules {
     shrink_second_last = 'shrink_second_last',
     shrink_third_last = 'shrink_third_last'
 }
+
+export enum Wood {
+    acacia='acacia',
+    ash='ash',
+    aspen='aspen',
+    birch='birch',
+    blackwood='blackwood',
+    chestnut='chestnut',
+    douglas_fir='douglas_fir',
+    hickory='hickory',
+    kapok='kapok',
+    maple='maple',
+    mangrove='mangrove',
+    oak='oak',
+    palm='palm',
+    pine='pine',
+    rosewood='rosewood',
+    sequoia='sequoia',
+    spruce='spruce',
+    sycamore='sycamore',
+    white_cedar='white_cedar',
+    willow='willow'
+}
+
+export const WoodTypes:List<Wood> = List.from(
+    Wood.acacia, 
+    Wood.ash, 
+    Wood.aspen, 
+    Wood.birch, 
+    Wood.blackwood,
+    Wood.chestnut, 
+    Wood.douglas_fir, 
+    Wood.hickory, 
+    Wood.kapok, 
+    Wood.maple,
+    Wood.mangrove,
+    Wood.oak,
+    Wood.palm,
+    Wood.pine,
+    Wood.rosewood,
+    Wood.sequoia,
+    Wood.spruce,
+    Wood.sycamore,
+    Wood.white_cedar,
+    Wood.willow
+); 

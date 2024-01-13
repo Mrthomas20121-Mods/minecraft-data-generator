@@ -759,9 +759,47 @@ export class ModelManager {
         });
     }
 
+    woodWall(blockName: string, otherBlockName: string, mod: string): void {
+      let blockModel = this.createTagPath(join('.', 'generated', this.modid, 'assets', this.modid, 'models', 'block', this.joinString(blockName, '.json')));
+      let fullItemBlockPath = this.createTagPath(join('.', 'generated', this.modid, 'assets', this.modid, 'models', 'item', this.joinString(blockName, '.json')));
+      let fullBlockstatePath = this.createTagPath(join('.', 'generated', this.modid, 'assets', this.modid, 'blockstates', this.joinString(blockName, '.json')));
+      
+      this.save(fullBlockstatePath, {
+        "variants": {
+          "": {
+              "model": `${this.modid}:block/${blockName}`
+          }
+        }
+      });
+
+      this.save(blockModel, {
+        "textures": {
+          "0": `${mod}:block/${otherBlockName}`,
+          "particle": `${mod}:block/${otherBlockName}`
+        },
+        "elements": [
+          {
+            "name": "log",
+            "from": [4, 0, 4],
+            "to": [12, 16, 12],
+            "faces": {
+              "north": {"uv": [4, 0, 12, 16], "texture": "#0"},
+              "east": {"uv": [4, 0, 12, 16], "texture": "#0"},
+              "south": {"uv": [4, 0, 12, 16], "texture": "#0"},
+              "west": {"uv": [4, 0, 12, 16], "texture": "#0"},
+              "up": {"uv": [8, 8, 16, 16], "texture": "#0"},
+              "down": {"uv": [0, 8, 8, 16], "texture": "#0"}
+            }
+          }
+        ]
+      });
+
+      this.itemBlock(blockName);
+  }
+
     bucket(itemPath: string, fluidPath: string) {
       let fullItemBlockPath = this.createTagPath(join('.', 'generated', this.modid, 'assets', this.modid, 'models', 'item', this.joinString(itemPath, '.json')));
-      this.save(itemPath, {
+      this.save(fullItemBlockPath, {
         "parent": "forge:item/bucket_drip",
         "loader": "forge:bucket",
         "fluid": `${this.modid}:${fluidPath}`
